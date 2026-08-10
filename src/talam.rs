@@ -31,7 +31,7 @@ impl Talam {
             BaseTalam::Matyama => return Aks::new(n, l * 2 + 2) * k,
         }
     }
-    fn mat_count(&self) -> Mat {
+    pub fn mat_count(&self) -> Mat {
         let m: Mat = self.akshara.into();
         return m;
     }
@@ -43,6 +43,9 @@ impl Talam {
     }
 }
 
+/*
+ * Ava is a resultant type of division, there are no links to the talam it was constructed from.
+ * */
 pub struct Ava {
     rounds: usize,
     aks: Aks,

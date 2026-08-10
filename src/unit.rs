@@ -1,4 +1,6 @@
-use std::ops::{Add, Mul};
+use std::ops::{Add, Div, Mul};
+
+use crate::talam;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct Mat(pub usize);
@@ -13,6 +15,12 @@ impl Add<Aks> for Mat {
     type Output = Mat;
     fn add(self, rhs: Aks) -> Self::Output {
         Mat(self.0 + rhs.nadai * rhs.count)
+    }
+}
+impl Div<talam::Talam> for Mat {
+    type Output = talam::Ava;
+    fn div(self, rhs: talam::Talam) -> Self::Output {
+        return rhs.mat_to_ava(self)
     }
 }
 
@@ -33,8 +41,8 @@ impl Aks {
         };
     }
 }
-impl From<Aks> for Mat{
-    fn from(value: Aks) -> Mat{
+impl From<Aks> for Mat {
+    fn from(value: Aks) -> Mat {
         return Mat(value.nadai * value.count);
     }
 }
