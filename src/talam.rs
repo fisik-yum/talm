@@ -71,3 +71,100 @@ pub enum BaseTalam {
     Jampa,
     Matyama,
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_eka_akshara() {
+        let t = Talam::new(BaseTalam::Eka, 4, 4, 1);
+        assert_eq!(t.akshara, Aks::new(4, 4));
+        assert_eq!(t.mat_count(), Mat(16));
+    }
+
+    #[test]
+    fn test_roopaka_akshara() {
+        let t = Talam::new(BaseTalam::Roopaka, 4, 4, 1);
+        assert_eq!(t.akshara, Aks::new(4, 6));
+        assert_eq!(t.mat_count(), Mat(24));
+    }
+
+    #[test]
+    fn test_triputa_akshara() {
+        let t = Talam::new(BaseTalam::Triputa, 2, 4, 1);
+        assert_eq!(t.akshara, Aks::new(4, 6));
+        assert_eq!(t.mat_count(), Mat(24));
+    }
+
+    #[test]
+    fn test_ata_akshara() {
+        let t = Talam::new(BaseTalam::Ata, 2, 4, 1);
+        assert_eq!(t.akshara, Aks::new(4, 8));
+        assert_eq!(t.mat_count(), Mat(32));
+    }
+
+    #[test]
+    fn test_dhruva_akshara() {
+        let t = Talam::new(BaseTalam::Dhruva, 2, 4, 1);
+        assert_eq!(t.akshara, Aks::new(4, 8));
+        assert_eq!(t.mat_count(), Mat(32));
+    }
+
+    #[test]
+    fn test_jampa_akshara() {
+        let t = Talam::new(BaseTalam::Jampa, 2, 4, 1);
+        assert_eq!(t.akshara, Aks::new(4, 5));
+        assert_eq!(t.mat_count(), Mat(20));
+    }
+
+    #[test]
+    fn test_matyama_akshara() {
+        let t = Talam::new(BaseTalam::Matyama, 2, 4, 1);
+        assert_eq!(t.akshara, Aks::new(4, 6));
+        assert_eq!(t.mat_count(), Mat(24));
+    }
+
+    #[test]
+    fn test_kallai_multiplies_count() {
+        let t = Talam::new(BaseTalam::Eka, 4, 4, 3);
+        assert_eq!(t.akshara, Aks::new(4, 12));
+        assert_eq!(t.mat_count(), Mat(48));
+    }
+
+    #[test]
+    fn test_mat_to_ava_exact() {
+        let t = Talam::new(BaseTalam::Eka, 4, 4, 1);
+        let ava = t.mat_to_ava(Mat(16));
+        assert_eq!(ava.rounds, 1);
+        assert_eq!(ava.aks, Aks::new(4, 0));
+        assert_eq!(ava.remain, Mat(0));
+    }
+
+    #[test]
+    fn test_mat_to_ava_partial() {
+        let t = Talam::new(BaseTalam::Eka, 4, 4, 1);
+        let ava = t.mat_to_ava(Mat(10));
+        assert_eq!(ava.rounds, 0);
+        assert_eq!(ava.aks, Aks::new(4, 2));
+        assert_eq!(ava.remain, Mat(2));
+    }
+
+    #[test]
+    fn test_mat_to_ava_multiple_rounds() {
+        let t = Talam::new(BaseTalam::Eka, 4, 4, 1);
+        let ava = t.mat_to_ava(Mat(35));
+        assert_eq!(ava.rounds, 2);
+        assert_eq!(ava.aks, Aks::new(4, 0));
+        assert_eq!(ava.remain, Mat(3));
+    }
+
+    #[test]
+    fn test_mat_div_talam_operator() {
+        let t = Talam::new(BaseTalam::Eka, 4, 4, 1);
+        let ava = Mat(20) / t;
+        assert_eq!(ava.rounds, 1);
+        assert_eq!(ava.aks, Aks::new(4, 1));
+        assert_eq!(ava.remain, Mat(0));
+    }
+}

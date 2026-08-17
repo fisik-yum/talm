@@ -93,4 +93,41 @@ mod tests {
         assert!(res.type_id() == TypeId::of::<Mat>());
         assert_eq!(res, Mat(60));
     }
+
+    #[test]
+    fn test_aks_add_mat() {
+        let lhs = Aks { nadai: 4, count: 5 };
+        let rhs = Mat(10);
+        let res = lhs + rhs;
+        assert_eq!(res, Mat(30));
+    }
+
+    #[test]
+    fn test_mat_add_aks() {
+        let lhs = Mat(10);
+        let rhs = Aks { nadai: 4, count: 5 };
+        let res = lhs + rhs;
+        assert_eq!(res, Mat(30));
+    }
+
+    #[test]
+    fn test_aks_mul_usize() {
+        let a = Aks { nadai: 4, count: 5 };
+        let res = a * 3;
+        assert_eq!(res, Aks { nadai: 4, count: 15 });
+    }
+
+    #[test]
+    fn test_aks_from_mat() {
+        let m = Mat(20);
+        let a = Aks::from_mat(m, 4);
+        assert_eq!(a, Aks { nadai: 4, count: 5 });
+    }
+
+    #[test]
+    fn test_mat_from_aks() {
+        let a = Aks { nadai: 4, count: 5 };
+        let m: Mat = a.into();
+        assert_eq!(m, Mat(20));
+    }
 }
