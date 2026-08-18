@@ -1,2 +1,2 @@
-mod talam;
-mod unit;
+pub mod talam;
+pub mod unit;
