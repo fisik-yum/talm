@@ -1,8 +1,8 @@
 use crate::aks::{self, Carry};
 
 pub struct Avartana {
-    count: usize,
-    carry: aks::Carry,
+    pub count: usize,
+    pub carry: aks::Carry,
 }
 impl Avartana {
     pub fn from_standard(value: aks::StandardAkshara, aksharas_per_cycle: usize) -> Self {
