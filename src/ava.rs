@@ -1,3 +1,5 @@
+use std::fmt;
+
 use crate::aks::{self, Carry};
 
 pub struct Avartana {
@@ -13,5 +15,10 @@ impl Avartana {
                 value.edam.den * aksharas_per_cycle,
             ),
         }
+    }
+}
+impl fmt::Display for Avartana {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "{}ava{}e", self.count, self.carry)
     }
 }
