@@ -100,15 +100,19 @@ impl Carry {
     pub const HALF: Carry = Carry { num: 1, den: 2 };
     pub const QUARTER: Carry = Carry { num: 1, den: 4 };
 
-    pub fn from_extra(extra: Mathrai, nadai: Mathrai) -> Self {
-        if extra.0 == 0 {
+    pub fn new(num: usize, den: usize) -> Self {
+        if num == 0 {
             return Carry::ZERO;
         }
-        let g = gcd(extra.0, nadai.0);
+        let g = gcd(num, den);
         Carry {
-            num: extra.0 / g,
-            den: nadai.0 / g,
+            num: num / g,
+            den: den / g,
         }
+    }
+
+    pub fn from_extra(extra: Mathrai, nadai: Mathrai) -> Self {
+        Carry::new(extra.0, nadai.0)
     }
 
     pub fn to_mathrai(self, nadai: Mathrai) -> Mathrai {
