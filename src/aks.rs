@@ -130,7 +130,13 @@ impl Add for Carry {
             return (whole, Carry::ZERO);
         }
         let g = gcd(rem, den);
-        (whole, Carry { num: rem / g, den: den / g })
+        (
+            whole,
+            Carry {
+                num: rem / g,
+                den: den / g,
+            },
+        )
     }
 }
 impl fmt::Display for Carry {
@@ -139,6 +145,7 @@ impl fmt::Display for Carry {
     }
 }
 
+#[derive(Clone)]
 pub struct StandardAkshara {
     pub count: usize,
     pub edam: Carry,
